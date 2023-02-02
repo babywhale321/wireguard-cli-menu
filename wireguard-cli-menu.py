@@ -1,4 +1,5 @@
 import subprocess
+from simple_term_menu import TerminalMenu
 
 #wireguard commands for furthor use
 wg_up = ("sudo","wg-quick","up","wg0")
@@ -8,35 +9,31 @@ wg_down = ("sudo","wg-quick","down","wg0")
 def menu_clear():
     subprocess.run("clear")
 
-#loop will only exit when user inputs "3"
+#loop will only exit when user selects exit
 while True:
     
     #main menu prompt
     menu_clear()
-    print("if you havent already done so make sure to have wg0.conf in /etc/wireguard before starting wireguard.")
-    menu = input("Press 1 to start wireguard\nPress 2 to stop wireguard\nPress 3 to exit program\n")
+    options = ["Start Wireguard", "Stop Wireguard", "Exit"]
+    terminal_menu = TerminalMenu(options)
+    menu_entry_index = terminal_menu.show()
+    menu = ({options[menu_entry_index]})
 
-    #runs wireguard if user inputs 1
-    if menu == "1":
+    #runs wireguard if user selects to start
+    if menu == {"Start Wireguard"}:
         menu_clear()
         subprocess.run(wg_up)
         input("wireguard is running! Press enter to the main menu\n")
         continue
     
-    #stops wireguard if use inputs 2
-    elif menu == "2":
+    #stops wireguard if user selects to top
+    elif menu == {"Stop Wireguard"}:
         menu_clear()
         subprocess.run(wg_down)
         input("wireguard is not running! Press enter to the main menu\n")
         continue
     
     #exits program
-    elif menu == "3":
+    elif menu == {"Exit"}:
         print("have a good one!")
         break
-    
-    #anything other then 1,2 or 3 will get an error message
-    else:
-        menu_clear()
-        input("Please select an option with a number associated with the action.\nPress enter for the main menu.\n")
-        continue
