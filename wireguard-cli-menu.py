@@ -42,7 +42,7 @@ while True:
         subprocess.run(wg_down)
         input("wireguard is not running! Press enter to the main menu\n")
         continue
-    
+    #saves wireguard current state
     elif menu == ("Save current state"):
         config_state = input("Would you like to save the current state to startup? (y)yes/(n)no\n")
         config_state = config_state.lower()
