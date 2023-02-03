@@ -4,7 +4,6 @@ from simple_term_menu import TerminalMenu
 #wireguard commands for furthor use
 wg_up = ("sudo","wg-quick","up","wg0")
 wg_down = ("sudo","wg-quick","down","wg0")
-wg_state_change = ("sudo","wg-quick","save","wg0")
 
 #clear function for menu tidying
 def menu_clear():
@@ -16,7 +15,7 @@ while True:
     #main menu prompt
     menu_clear()
     menu_title = ("Main menu for wireguard CLI\n")
-    options = (["Start Wireguard", "Stop Wireguard","Save current state", "Exit"])
+    options = (["Start Wireguard", "Stop Wireguard", "Exit"])
     main_menu_cursor_style = ("fg_gray", "bold")
     #main menu options
     terminal_menu = TerminalMenu(
@@ -42,24 +41,6 @@ while True:
         subprocess.run(wg_down)
         input("wireguard is not running! Press enter to the main menu\n")
         continue
-    #saves wireguard current state
-    elif menu == ("Save current state"):
-        config_state = input("Would you like to save the current state to startup? (y)yes/(n)no\n")
-        config_state = config_state.lower()
-        
-        if config_state == "yes":
-            subprocess.run(wg_state_change)
-            input("Current state has been saved! Press enter to the main menu\n")
-            continue
-        
-        elif config_state == "y":
-            subprocess.run(wg_state_change)
-            input("Current state has been saved! Press enter to the main menu\n")
-            continue
-        
-        else:
-            input("Current state has NOT been saved! press enter for the main menu\n")
-            continue
         
     #exits program
     elif menu == ("Exit"):
